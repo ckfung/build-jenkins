@@ -1,28 +1,36 @@
-pipeline {
-    agent any
-    stages {
-        stage('One') {
-            when {
-                branch 'master'
+pipeline { 
+    environment { 
+        registry = "omegamix/jenkins-test" 
+        registryCredential = 'dockerHubCredentials' 
+        dockerImage = '' 
+    }
+    agent any 
+    stages { 
+        stage('Cloning our Git') { 
+            steps { 
+                git 'https://github.com/ckfung/petclinic-jenkins.git' 
             }
-            steps {
-                echo '=== Building Petclinic Docker Image ==='
-                
-                //script {
-                //    app = docker.build("getintodevops/hellonode")
-                //}
-            }
+        } 
+        stage('Building our image') { 
+            steps { 
+                script { 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                }
+            } 
         }
-        stage('Two') {
-            steps {
-                echo '=== Pushing Petclinic Docker Image ==='
-               
+        stage('Deploy our image') { 
+            steps { 
+                script { 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
+                } 
             }
-        }
-        stage('Three') {
-            steps {
-                echo '=== Delete the local docker images ==='
+        } 
+        stage('Cleaning up') { 
+            steps { 
+                sh "docker rmi $registry:$BUILD_NUMBER" 
             }
-        }
+        } 
     }
 }
