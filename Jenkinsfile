@@ -1,6 +1,6 @@
 pipeline { 
     environment { 
-        registry = "omegamix/jenkins-test" 
+        registry = "https://hub.docker.com/repository/docker/omegamix/jenkins-test" 
         registryCredential = 'dockerHubCredentials' 
         dockerImage = 'redis:5.0' 
     }
