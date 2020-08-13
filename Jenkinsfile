@@ -1,36 +1,47 @@
-pipeline { 
-    environment { 
-        registry = "https://hub.docker.com/repository/docker/omegamix/jenkins-test" 
-        registryCredential = 'dockerHubCredentials' 
-        dockerImage = 'redis:5.0' 
+pipeline {
+  environment {
+    registry = "omegamix/jenkins-test"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+  }
+  agent any
+  stages {
+    stage('Cloning') {
+      steps {
+        echo ‘clone the latest source’
+        git 'https://github.com/ckfung/petclinic-jenkins.git'
+      }
     }
-    agent any 
-    stages { 
-        //stage('Cloning our Git') { 
-        //    steps { 
-        //        git 'https://github.com/ckfung/petclinic-jenkins.git' 
-        //    }
-        //} 
-        //stage('Building our image') { 
-        //    steps { 
-        //        script { 
-         //           dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-        //        }
-        //    } 
-        //}
-        stage('Deploy our image') { 
-            steps { 
-                script { 
-                    docker.withRegistry( registry, registryCredential ) { 
-                        dockerImage.push() 
-                    }
-                } 
-            }
-        } 
-        stage('Cleaning up') { 
-            steps { 
-                sh "docker rmi $registry:$BUILD_NUMBER" 
-            }
-        } 
+    stage('Build') {
+      steps{
+        script {
+            echo 'start building image'
+            dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        }
+      }
     }
+    stage('Test') {
+      steps{
+        script {
+            echo 'start testing'
+            // steps for testing
+        }
+      }
+    }
+    stage("Deploy") {
+        steps{
+            script {
+                echo 'start deploying'
+                docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
+                }
+            }
+        }
+    }
+    stage("Remove Image") {
+        steps {
+            sh "docker rmi $registry:$BUILD_NUMBER"
+        }
+    }
+  }
 }
