@@ -2,7 +2,7 @@ pipeline {
     environment { 
         registry = "omegamix/jenkins-test" 
         registryCredential = 'dockerHubCredentials' 
-        dockerImage = '' 
+        dockerImage = 'redis:5.0' 
     }
     agent any 
     stages { 
@@ -11,13 +11,13 @@ pipeline {
                 git 'https://github.com/ckfung/petclinic-jenkins.git' 
             }
         } 
-        stage('Building our image') { 
-            steps { 
-                script { 
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-                }
-            } 
-        }
+        //stage('Building our image') { 
+        //    steps { 
+        //        script { 
+         //           dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+        //        }
+        //    } 
+        //}
         stage('Deploy our image') { 
             steps { 
                 script { 
