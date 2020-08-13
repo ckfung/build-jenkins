@@ -1,5 +1,4 @@
 pipeline {
-    def app
     stages {
         stage('One') {
             when {
