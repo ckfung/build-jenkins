@@ -8,10 +8,9 @@ pipeline {
             steps {
                 echo '=== Building Petclinic Docker Image ==='
                 
-                script {
-                    app = docker.build("getintodevops/hellonode")
-                //    app = docker.build("ibuchh/petclinic-spinnaker-jenkins")
-                }
+                //script {
+                //    app = docker.build("getintodevops/hellonode")
+                //}
             }
         }
         stage('Two') {
