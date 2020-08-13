@@ -1,8 +1,5 @@
 pipeline {
-    agent any
-       triggers {
-        pollSCM "* * * * *"
-       }
+    def app
     stages {
         stage('One') {
             when {
