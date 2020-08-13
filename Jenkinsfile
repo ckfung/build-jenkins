@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Cloning') {
       steps {
-        echo ‘clone the latest source’
+        echo 'clone the latest source'
         git 'https://github.com/ckfung/petclinic-jenkins.git'
       }
     }
