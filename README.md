@@ -1,1 +1,1 @@
-# petclinic-jenkins
+# build-jenkins
