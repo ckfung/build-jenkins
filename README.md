@@ -1,5 +1,8 @@
 # README
 
+## Part 1
+In email
+
 ## Part 2
 ### Pre-requisite
 1. Jenkins and Docker are setup within a server
