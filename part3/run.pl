@@ -27,7 +27,7 @@ while (<FH>) {
         $err_count++;
 
         # separator for different session
-        if ($err_count > 0) {
+        if ($err_count > 1) {
             print " -----"."\n";
         }
 
