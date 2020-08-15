@@ -1,4 +1,5 @@
 # README
+This repository base directory stores all the files required for Part 2.
 
 ## Part 1
 In email
@@ -12,6 +13,10 @@ In email
 5. Ensure Kubernetes CLI plugin is added to Jenkins
 6. Ensure Kubernetes cluster is available (in my case is local setup (localhost))
 
+### Assumptions
+1. The first pipieline is first to containerize the application and deliver to container registry
+2. The second pipeline is to deploy the container to kubernetes 
+
 ### Continuous Delivery Pipeline Setup Steps:
 1. Click on "New Item", insert the pipeline name and select "Multibranch Pipeline", Press OK
 2. At 'Branch Sources' section, click 'Add Source' and select 'GitHub'
@@ -20,7 +25,7 @@ In email
 5. Click 'Save'
 
 ### Continous Deployment Setup
-1. Repeast the same steps above with JenkinsfileForDeploy
+1. Repeat the same steps above with JenkinsfileForDeploy
 
 ## Part 3
 1. change directory to part3
