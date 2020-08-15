@@ -1,0 +1,21 @@
+pipeline {
+  environment {
+    registry = "omegamix/jenkins-test"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+  }
+  agent any
+  stages {
+    stage('Cloning') {
+      steps {
+        echo 'clone the latest source'
+        git 'https://github.com/ckfung/build-jenkins.git'
+      }
+    }
+    stage('Apply Kubernetes files') {
+      withKubeConfig([credentialsId: 'k8s', serverUrl: 'http://localhost']) {
+        sh 'kubectl apply -f kubernetes'
+      }
+    }
+  }
+}

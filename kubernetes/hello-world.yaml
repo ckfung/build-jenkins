@@ -16,19 +16,16 @@ spec:
     spec:
       containers:
         - name: hello-world
-          image: gcr.io/google-samples/node-hello:1.0
+          image: omegamix/jenkins-test:3
+          #image: gcr.io/google-samples/node-hello:1.0
           ports:
             - containerPort: 8080
               protocol: TCP
           readinessProbe:
             httpGet:
-              path: /
+              path: /actuator/health
               port: 8080
             timeoutSeconds: 2
-          #securityContext:
-            #allowPrivilegeEscalation: false
-            #runAsUser:
-              #rule: 'MustRunAsNonRoot'
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

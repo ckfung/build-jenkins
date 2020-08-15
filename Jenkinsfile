@@ -9,7 +9,7 @@ pipeline {
     stage('Cloning') {
       steps {
         echo 'clone the latest source'
-        git 'https://github.com/ckfung/petclinic-jenkins.git'
+        git 'https://github.com/ckfung/build-jenkins.git'
       }
     }
     stage('Build') {
