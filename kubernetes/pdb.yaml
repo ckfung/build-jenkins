@@ -3,7 +3,7 @@ kind: PodDisruptionBudget
 metadata:
   name: hello-pdb
 spec:
-  maxUnavailable: 1
+  maxAvailable: 1
   selector:
     matchLabels:
       app: hello
